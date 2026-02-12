@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Be My Valentine 💘</title>
+  <title>?</title>
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
@@ -30,6 +30,10 @@
       overflow: hidden;
     }
 
+    body.started {
+      overflow-y: auto;
+    }
+
     @keyframes bgMove {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
@@ -46,6 +50,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        top: 0;
     }
     .starting {
       opacity: 0;
@@ -58,6 +63,7 @@
         background-color: #6b6b6b;
         transition: all 1s ease;
         z-index: 10;
+        top: 0;
     }
 
     /* Card */
@@ -167,8 +173,8 @@
     }
 
     .hint {
-      margin-top: 28px;
-      font-size: 13px;
+      margin-top: 15px;
+      font-size: 11px;
       color: #6b6b6b;
       font-style: italic;
     }
@@ -176,7 +182,7 @@
     /* Floating depth hearts */
     .heart {
       position: absolute;
-      bottom: -20px;
+      bottom: 0px;
       animation: floatUp linear forwards;
       pointer-events: none;
       filter: blur(0.3px);
@@ -236,7 +242,7 @@
     const card = document.querySelector(".card");
     const hoverSound = document.getElementById("hoverSound");
     const yesSound = document.getElementById("yesSound");
-    const theDate = Date.parse("14 Feb 2026 00:00:00 -3");
+    const theDate = Date.parse("11 Feb 2026 00:00:00 -3");
 
     function createHeart() {
       const heart = document.createElement("div");
@@ -271,6 +277,8 @@
     }
 
     function doTheThing() {
+      document.title = "<3"
+      document.body.className = "started";
       tickSound.pause();
       confetti({
         particleCount: 260,
