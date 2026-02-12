@@ -46,7 +46,7 @@
         position: absolute;
         background-color: #000000;
         z-index: 11;
-        transition: all 1s ease;
+        transition: opacity 1s ease;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -61,7 +61,7 @@
         width: 100vw;
         position: absolute;
         background-color: #6b6b6b;
-        transition: all 1s ease;
+        transition: opacity 1s ease;
         z-index: 10;
         top: 0;
     }
@@ -216,8 +216,8 @@
   </div>
 
   <div id="waiting" style="display: flex;">
-    <img style="width: 50%; margin: auto; display: block; opacity: 50%;" 
-    src="tick.png">
+    <img style="width: 25%; margin: auto; display: block; opacity: 50%;" 
+    src="tick.png"> 
   </div>
 
   <div class="card">
@@ -242,7 +242,7 @@
     const card = document.querySelector(".card");
     const hoverSound = document.getElementById("hoverSound");
     const yesSound = document.getElementById("yesSound");
-    let theDate = Date.parse("11 Feb 2026 00:00:00 -3");
+    let theDate = Date.parse("14 Feb 2026 00:00:00 -3");
 
     function createHeart() {
       const heart = document.createElement("div");
