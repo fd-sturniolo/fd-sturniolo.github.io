@@ -8,8 +8,13 @@
 </head>
 <body>
     <div class="container">
-        <h1>Holi</h1>
-        <p>...</p>
+        <h1>¿Voy a entrenar hoy?</h1>
+        <p id="response"></p>
     </div>
 </body>
+<script>
+    const day = new Date().getDay();
+    console.log(day);
+    document.getElementById("response").textContent = (day === 1 || day === 3) ? 'Sí' : 'No';
+</script>
 </html>
