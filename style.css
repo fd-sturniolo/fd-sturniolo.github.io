@@ -1,6 +1,7 @@
 body {
     font-family: Arial, sans-serif;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -31,4 +32,54 @@ button {
 }
 button:hover {
     background-color: #f0f0f0;
+}
+
+#reactions {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6.5ch;
+    max-width: min(100%, 640px);
+    padding: 0 12px;
+}
+
+[data-lyket-id] {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 999px;
+    padding: 6px 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+[data-lyket-id] button {
+    background: rgba(255, 255, 255, 0.65) !important;
+    border: 1px solid rgba(255, 255, 255, 0.75) !important;
+    border-radius: 999px !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+[data-lyket-id] button+div {
+    color: white;
+    font-weight: 700;
+}
+
+[data-lyket-id] div button svg {
+    display: none;
+}
+
+[data-lyket-id="laughs"] button::after {
+    content: "😂";
+}
+
+[data-lyket-id="hearts"] button::after {
+    content: "❤️";
+}
+
+[data-lyket-id="claps"] button::after {
+    content: "👏"
+}
+
+[data-lyket-id="vomit"] button::after {
+    content: "🤮"
 }

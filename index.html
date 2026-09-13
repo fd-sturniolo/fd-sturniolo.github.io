@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome</title>
-    <link rel="stylesheet" href="style.css">
+    <title>pench.cc</title>
+    <link rel="stylesheet" href="style.css"><script src="https://unpkg.com/@lyket/widget@latest/dist/lyket.js?apiKey=pt_7e26789e16a17e04ce5e38d7549cc8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
 </head>
 <body>
     <div class="container">
@@ -14,10 +16,99 @@
         <p id="response"></p>
         <img src="logo.png" height="120px" alt="Logo"> -->
     </div>
+    <div class="container" id="reactions">
+    </div>
 </body>
+<template id="reaction-template">
+  <div
+    data-lyket-type="like"
+    data-lyket-id=""
+    data-lyket-namespace=""
+    ></div>
+</template>
 <script>
-    const day = new Date().getDay();
-    console.log(day);
-    document.getElementById("response").textContent = (day === 1 || day === 3) ? 'Sí' : 'No';
+    let namespace = "20260913";
+
+    const reactionColors = {
+        laughs: ['#FFD43B', '#FFB703', '#F9C74F', '#FF8C42'],
+        hearts: ['#FF5D8F', '#FF2E63', '#FF8FA3', '#C9184A'],
+        claps: ['#5EC8FF', '#4361EE', '#7BDFF2', '#4CC9F0'],
+        vomit: ['#8BC34A', '#6CBF5A', '#A3D65C', '#519B3B']
+    };
+
+    function launchReactionConfetti(id, event) {
+        const colors = reactionColors[id];
+        if (!colors || typeof confetti !== 'function') return;
+
+        const button = event && event.target && event.target.closest ? event.target.closest('button') : null;
+        const origin = button
+            ? {
+                x: (button.getBoundingClientRect().left + button.getBoundingClientRect().width / 2) / window.innerWidth,
+                y: (button.getBoundingClientRect().top + button.getBoundingClientRect().height / 2) / window.innerHeight,
+            }
+            : { x: 0.5, y: 0.5 };
+
+        confetti({
+            particleCount: 35,
+            spread: 55,
+            startVelocity: 18,
+            origin,
+            colors,
+            scalar: 0.55,
+            gravity: 0.8,
+            shapes: ['circle']
+        });
+    }
+
+    function bindReactionConfetti() {
+        document.querySelectorAll('[data-lyket-id]').forEach((reaction) => {
+            if (reaction.dataset.confettiBound === 'true') return;
+            reaction.dataset.confettiBound = 'true';
+
+            reaction.addEventListener('click', (event) => {
+                const button = event.target.closest('button');
+                if (!button) return;
+
+                const id = reaction.getAttribute('data-lyket-id');
+                launchReactionConfetti(id, event);
+            });
+        });
+    }
+
+    // 1. Select the template and the container
+    const template = document.querySelector('#reaction-template');
+    const container = document.querySelector('#reactions');
+
+    const laughs = template.content.cloneNode(true);
+    laughs.id = 'laughs';
+    laughs.querySelector('[data-lyket-id]').setAttribute('data-lyket-id', 'laughs');
+    laughs.querySelector('[data-lyket-namespace]').setAttribute('data-lyket-namespace', namespace);
+    container.appendChild(laughs);
+
+    const hearts = template.content.cloneNode(true);
+    hearts.id = 'hearts';
+    hearts.querySelector('[data-lyket-id]').setAttribute('data-lyket-id', 'hearts');
+    hearts.querySelector('[data-lyket-namespace]').setAttribute('data-lyket-namespace', namespace);
+    container.appendChild(hearts);
+
+    const claps = template.content.cloneNode(true);
+    claps.id = 'claps';
+    claps.querySelector('[data-lyket-id]').setAttribute('data-lyket-id', 'claps');
+    claps.querySelector('[data-lyket-namespace]').setAttribute('data-lyket-namespace', namespace);
+    container.appendChild(claps);
+
+    const vomit = template.content.cloneNode(true);
+    vomit.id = 'vomit';
+    vomit.querySelector('[data-lyket-id]').setAttribute('data-lyket-id', 'vomit');
+    vomit.querySelector('[data-lyket-namespace]').setAttribute('data-lyket-namespace', namespace);
+    container.appendChild(vomit);
+
+    bindReactionConfetti();
+    const reactionObserver = new MutationObserver(() => bindReactionConfetti());
+    reactionObserver.observe(document.body, {
+        childList: true,
+        subtree: true,
+    });
+
 </script>
 </html>
