@@ -4,16 +4,20 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
+    width: min(100%, 100ch);
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 0 1rem;
+    box-sizing: border-box;
     background: linear-gradient(135deg, #1b275f 0%, #581b96 100%);
 }
 .container {
+    width: 100%;
     text-align: center;
     color: white;
 }
 h1 {
-    font-size: 3em;
+    font-size: 2.7em;
     margin-bottom: 10px;
 }
 p {
@@ -38,10 +42,13 @@ button:hover {
     margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
+    flex-wrap: wrap balance;
     justify-content: center;
     gap: 6.5ch;
-    max-width: min(100%, 640px);
+    width: 100%;
+    max-width: 100ch;
     padding: 0 12px;
+    box-sizing: border-box;
 }
 
 [data-lyket-id] {
@@ -50,6 +57,17 @@ button:hover {
     border-radius: 999px;
     padding: 6px 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    /* Reserve enough space for the reaction count so the widget doesn't reflow when Lyket inserts its text later. */
+    min-width: 8.5ch;
+}
+
+[data-lyket-id] > div {
+    display: flex;
+    align-items: center;
+    /* Keep the emoji button pinned to the left; the counter sits to the right without pushing the button around. */
+    justify-content: flex-start;
+    width: 100%;
+    min-width: 5ch;
 }
 
 [data-lyket-id] button {
@@ -57,11 +75,18 @@ button:hover {
     border: 1px solid rgba(255, 255, 255, 0.75) !important;
     border-radius: 999px !important;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    /* Push the button to the left edge of the reserved slot so the count can appear on the right without shifting it. */
+    margin-right: auto;
+    flex-shrink: 0;
 }
 
 [data-lyket-id] button+div {
     color: white;
     font-weight: 700;
+    min-width: 2ch;
+    text-align: center;
+    margin-left: 0.5em;
+    flex-shrink: 0;
 }
 
 [data-lyket-id] div button svg {
