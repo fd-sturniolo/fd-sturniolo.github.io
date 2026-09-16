@@ -24,6 +24,38 @@ p {
     font-size: 1.2em;
     margin-bottom: 30px;
 }
+.rainbow {
+    background: linear-gradient(
+        90deg,
+        #ff4d6d,
+        #ff9f1c,
+        #ffe66d,
+        #2ec4b6,
+        #4d96ff,
+        #9b5de5,
+        #ff4d6d
+    );
+    background-size: 300% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: rainbow-pulse 4s linear infinite;
+}
+@keyframes rainbow-pulse {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 300% 50%;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .rainbow {
+        animation: none;
+        background-position: 50% 50%;
+    }
+}
 button {
     padding: 10px 30px;
     font-size: 1em;
